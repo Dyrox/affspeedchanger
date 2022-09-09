@@ -21,3 +21,8 @@ Misc.东西:
                 ├── 3.jpg (optional)
                 └── 3_256.jpg (optional)
 ```
+songlist可能不包括：
+- idx字段，除非在私服会在linkplay用到
+- remote_dl同理，离线私服不会用到
+- byd_local_unlock好像就不用填，可以在离线解锁byd的arc壳子里直接启用byd谱面
+- audioOverride & jacketOverride，hmm我寻思没啥用
