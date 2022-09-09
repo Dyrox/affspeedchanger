@@ -1,0 +1,38 @@
+{
+      "id": "skysthelimit",
+      "title_localized": {
+			"en": "Sky's the limit"
+      },
+      "artist": "Mameyudoufu",
+      "bpm": "177",
+      "bpm_base": 177,
+      "set": "pack_base",
+      "purchase": "",
+      "audioPreview": 22500,
+      "audioPreviewEnd": 44000,
+      "side": 0,
+      "bg": "vs_light",
+      "date": 1544339307,
+      "version": "3.0",
+      "difficulties": [
+        {
+          "ratingClass": 0,
+          "chartDesigner": "",
+          "jacketDesigner": "",
+          "rating": 0
+        },
+        {
+          "ratingClass": 1,
+          "chartDesigner": "",
+          "jacketDesigner": "",
+          "rating": 0
+        },
+        {
+          "ratingClass": 2,
+          "chartDesigner": "Dyrox",
+          "jacketDesigner": "MEGAREX",
+          "rating": 9,
+          "ratingPlus": false
+        }
+      ]
+    },
