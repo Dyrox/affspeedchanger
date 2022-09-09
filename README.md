@@ -13,8 +13,8 @@ Misc.东西:
         └── songs/
             └── song_id/
                 ├── 谱面0.aff
-								├── 谱面1.aff
-								├── 谱面2.aff
+                ├── 谱面1.aff
+                ├── 谱面2.aff
                 ├── base.ogg
                 ├── base.jpg
                 ├── base_256.jpg
