@@ -3,8 +3,7 @@ with open('particlearts/2.aff', 'r') as file1:
         factor = 0.9
         for line in file1.readlines():
             
-            
-            if line.startswith('timing'):
+            if line.startswith('timing'): #当语句为timing语句时候
                 line = line.replace('timing', '')
                 line = line.replace(';', '')
                 line = list(eval(line))
@@ -17,7 +16,9 @@ with open('particlearts/2.aff', 'r') as file1:
                 line = line.replace("'", "")
                 line = line.replace(" ", "")
 
-            
+            elif line.startswith('hold'):#当前note为地面长条
+
+
             file2.write(line)
             
             
