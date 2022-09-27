@@ -1,0 +1,36 @@
+文件类型&格式：
+
+timing语句:
+timing(开始时间,bpm,牌数);
+
+tap:
+(开始时间，轨道(0-5));
+
+hold:
+hold(开始时间，结束时间，轨道(0-5));
+
+Arc蛇&天键：
+arc(开始时间，结束时间，x起始坐标,x结束坐标,蛇形状,y起始坐标,y结束坐标,颜色,4.0自定义hitsound,是黑线bool)[arctap(开始时间),arctap(开始时间)];
+
+scenecontrol语句：
+scenecontrol(开始时间,种类,小数参数1,整数参数2);
+
+hidegroup（v3.5.3新增）：是否隐藏该时间组(timinggroup)内的note(由param2决定)
+param1：未知参数
+param2：隐藏或显示该时间组的note（1/0）
+使用例：scenecontrol(81920,hidegroup,0.00,1);
+需要放在时间组(timinggroup)中使用
+
+#我现在寻思就是既然hidegroup的param1是0.00，那我直接scenecontrol一并处理就行，因为是可以
+
+enwidencamera（v4.0.0新增）：使Camera按一定比例远离轨道，同时skyinput也会变高
+enwidenlanes（v4.0.0新增）：使轨道两侧的ExtraLane展示
+两种enwiden类型的scenecontrol的param用法如下:
+param1：持续时长（ms）
+param2：淡入或淡出该事件展示的效果（1/0）
+使用例：scenecontrol(1000,enwidencamera,1000.00,1);
+enwidencamera的相机移动效果实际相当于camera(t,0,450,450,0,0,0,s,duration);语句，但enwidencamera会同时将Sky Input线移动至y=1.61处。
+
+timinggroup(){
+ //正常aff语句
+};
