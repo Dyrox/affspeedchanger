@@ -1,4 +1,3 @@
-
 def formatAs2Decimals(num: float) -> str:
     return "%.2f" % num
     #return "{:.2f}".format(num)
@@ -6,15 +5,23 @@ def formatAs2Decimals(num: float) -> str:
 def apostropheSpaceRemove(s: str) -> str:
     return (s.replace("'", "")).replace(" ", "")
 
-with open('particlearts/2.aff', 'r') as file1:
-    with open('particlearts/2edited.aff', 'w') as file2:
+enwidencamera = 'enwidencamera'
+enwidenlanes = 'enwidenlanes'
+
+with open('arcanaedenbyd/3.aff', 'r') as file1:
+    with open('arcanaedenbyd/3editted.aff', 'w') as file2:
         globalTimeFactor = 0.9
         for line in file1.readlines():
+
+            line = line.strip()
+
+            if line == '-':
+                line = line + '\n'
 
             if line.startswith("AudioOffset"):
                 line = "AudioOffset:" + str(int(int(line.split(':')[1]) // globalTimeFactor)) + '\n'
 
-            elif line.startswith('timing'): #当语句为timing语句时候
+            elif line.startswith('timing') and not 'group' in line: #当语句为timing语句时候
                 line = line.replace('timing', '')
                 line = line.replace(';', '')
                 
@@ -28,7 +35,7 @@ with open('particlearts/2.aff', 'r') as file1:
                 line = apostropheSpaceRemove(line)
 
 
-            elif line.startswith('hold'):#当前note为地面长条
+            elif 'hold' in line:#当前note为地面长条
                 line = line.replace('hold', '')
                 line = line.replace(';', '')
                 line = list(eval(line)) #hold
@@ -55,7 +62,7 @@ with open('particlearts/2.aff', 'r') as file1:
                 line = str(tuple(line))+';\n'
                 line = apostropheSpaceRemove(line)
 
-            if line.startswith('arc'): #当语句为arc语句时候
+            elif line.startswith('arc'): #当语句为arc语句时候
                 if 'arctap' in line: arctapBool = True
                 else: arctapBool = False
 
@@ -112,6 +119,23 @@ with open('particlearts/2.aff', 'r') as file1:
                 else:
                     line = arcLine + ';\n'
 
-                        
+            elif line.startswith('timinggroup'):
+                line = line + '\n'
+            elif line == '};':
+                line = line + '\n' 
+
+            elif line.startswith('scenecontrol'):
+                line = line.replace('scenecontrol', '')
+                line = line.replace(';', '')
+                line = list(eval(line))
+
+                line[0] = int(line[0]//globalTimeFactor) #timing开始时间
+                line[2] = formatAs2Decimals((line[2]//globalTimeFactor)) #timing的bpm
+
+                line = 'scenecontrol'+str(tuple(line))+';\n'
+                line = apostropheSpaceRemove(line)
+
+            
+
             file2.write(line)
             
