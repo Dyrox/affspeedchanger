@@ -1,30 +1,27 @@
-#affspeedchanger
->arcaea谱面变速器，啊这还没想好，有一说一，等我有空了再做吧我寻思。
 
-##总体来说
-估计使用python写个变速脚本，用于arcaea游戏的自制谱面，然后使用一个整合可以输出一整个文件夹
+# Arcaea谱面变速器
 
-to-do列表：
-- songlist.json的生成器或者变速器, (主要就是bpm_base这个东西可以改下)
-- sox开源音频处理，顺便整合一下.ogg文件，（这还需要ffmpeg吗？）
-- 文件整合，包括文件夹和新文件的输出
-- UI界面（？？）
 
-Misc.东西:
-```
-        └── songs/
-            └── song_id/
-                ├── 谱面0.aff
-                ├── 谱面1.aff
-                ├── 谱面2.aff
-                ├── base.ogg
-                ├── base.jpg
-                ├── base_256.jpg
-                ├── 3.jpg (optional)
-                └── 3_256.jpg (optional)
-```
-songlist可能不包括：
-- idx字段，除非在私服会在linkplay用到
-- remote_dl同理，离线私服不会用到
-- byd_local_unlock好像就不用填，可以在离线解锁byd的arc壳子里直接启用byd谱面
-- audioOverride & jacketOverride，hmm我寻思没啥用
+> 适用于[Arcaea](https://arcaea.lowiro.com/en)游戏谱面文件的变速脚本
+
+## 功能
+支持语句类型：
+- Tap 地键
+- Hold 长条
+- Arc & ArcTap 蛇和天键
+- Timing 语句
+- Timinggroup 语句
+- Scenecontrol 语句（支持hidegroup和enwidenlanes，enwidencamera）
+
+## 其他
+
+- 目前支持到游戏 v4.0.256 版本的所有官方谱面。暂不支持愚人节谱面，不过要做也挺快的，主要我懒（
+- 目前没有 UI 以及方便的方法选择速度以及谱面文件
+- 目前暂无音频方面的整合，需要自行对音频进行变速处理
+
+### to-do列表：
+- [] songlist.json的生成器或者变速器, (主要是bpm_base参数)
+- [] sox开源音频处理，顺便整合一下.ogg文件
+- [] 文件整合，包括文件夹和新文件的输出
+- [] UI界面（？？）
+
