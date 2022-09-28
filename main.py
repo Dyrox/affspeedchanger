@@ -1,3 +1,4 @@
+
 def formatAs2Decimals(num: float) -> str:
     return "%.2f" % num
     #return "{:.2f}".format(num)
@@ -60,7 +61,7 @@ with open('particlearts/2.aff', 'r') as file1:
                 if 'arctap' in line:
                     arctapBool = True
                 else:
-                    pass
+                    arctapBool = False
 
                 line = line.replace('arc', '')
                 line = line.replace(';', '')
@@ -71,25 +72,23 @@ with open('particlearts/2.aff', 'r') as file1:
                     line[i] = int(line[i])
                     line[i] = int(line[i]//globalTimeFactor)
                     
-                    
                 for i in range(2,6+1):
                     if i == 4:
                         pass
                     else:
                         line[i] = float(line[i])
                         line[i] = formatAs2Decimals(line[i])
-                    
         
                 line[4] = str(line[4])
                 line[8] = str(line[8])
                 line[9] = str(line[9])
-            
-                if arctapBool == False:
-                    line = 'arc'+str(tuple(line))+';\n'
-                else:
-                    pass
 
-                
+                if arctapBool:
+                    line = str('')
+                    pass
+                else:
+                    line = ('arc'+str(tuple(line))+';\n').replace('\\n','')
+                    
                 line = apostropheSpaceRemove(line)
 
         
