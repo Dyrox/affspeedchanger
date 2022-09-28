@@ -56,42 +56,62 @@ with open('particlearts/2.aff', 'r') as file1:
                 line = apostropheSpaceRemove(line)
 
             if line.startswith('arc'): #当语句为arc语句时候
-                arctapBool = False
+                if 'arctap' in line: arctapBool = True
+                else: arctapBool = False
 
-                if 'arctap' in line:
-                    arctapBool = True
+                if arctapBool: #把蛇和天键的部分给拆分开来
+                    arcLine = line[:line.find('[')]
+                    arcTapLine = line[line.find('['):-1]
                 else:
-                    arctapBool = False
-
-                line = line.replace('arc', '')
-                line = line.replace(';', '')
-                line = line.replace('(','').replace(')','')
-                line = (line.split(','))
+                    arcLine = line[:-1]
+                    arcTapLine = ''
                 
-                for i in range(0,1+1):
-                    line[i] = int(line[i])
-                    line[i] = int(line[i]//globalTimeFactor)
-                    
-                for i in range(2,6+1):
+                ####蛇处理####
+                arcLine = arcLine.replace('arc','').replace('(','').replace(')','').replace(';','')
+                arcLine = (arcLine.split(','))
+                for i in range(0,1+1): #蛇起始结束时间, in ms
+                    arcLine[i] = int(arcLine[i])
+                    arcLine[i] = int(arcLine[i]//globalTimeFactor)
+
+                for i in range(2,6+1): #蛇x1,x2,y1,y2坐标
                     if i == 4:
                         pass
                     else:
-                        line[i] = float(line[i])
-                        line[i] = formatAs2Decimals(line[i])
-        
-                line[4] = str(line[4])
-                line[8] = str(line[8])
-                line[9] = str(line[9])
+                        arcLine[i] = float(arcLine[i])
+                        arcLine[i] = formatAs2Decimals(arcLine[i])
 
-                if arctapBool:
-                    line = str('')
-                    pass
-                else:
-                    line = ('arc'+str(tuple(line))+';\n').replace('\\n','')
+                arcLine[4] = str(arcLine[4]) #蛇形状, eg: b, s, si so
+                arcLine[8] = str(arcLine[8]) #蛇custom hitsound
+                arcLine[9] = str(arcLine[9]) #是黑线? bool
+                arcLine = 'arc'+str(tuple(arcLine))
+                arcLine = apostropheSpaceRemove(arcLine)
+                
+                ####下面是天键处理####
+                
+                arcTapAmount = arcTapLine.count('arctap')#一个蛇中天键个数
+                arcTapLine = arcTapLine.replace('[','').replace(']','')
+                arcTapLine = arcTapLine.split(',')
+                for i in range(arcTapAmount): 
+                    arcTapLine[i] = int(''.join(filter(str.isdigit,arcTapLine[i])))
+                    arcTapLine[i] = int(arcTapLine[i] // globalTimeFactor)
+                    arcTapLine[i] = 'arctap('+ str(arcTapLine[i])+')'
+
+                
+                arcTapLine = str(tuple(arcTapLine))
+                arcTapLine = arcTapLine[:-1] + ''
+                arcTapLine = arcTapLine[1:] + ''
+                arcTapLine = apostropheSpaceRemove(arcTapLine)
+                arcTapLine = '['+ arcTapLine + '];'
+
+                if arcTapAmount == 1:
+                    arcTapLine = arcTapLine.replace(',','')
                     
-                line = apostropheSpaceRemove(line)
+                if arctapBool:
+                    line = arcLine + arcTapLine + '\n'
+                
+                else:
+                    line = arcLine + ';\n'
 
-        
+                        
             file2.write(line)
             
-
