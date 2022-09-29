@@ -89,7 +89,7 @@ def lineChangeSpeed(line,globalTimeFactor):
         arcLine = apostropheSpaceRemove(arcLine)
         
         ####下面是天键处理####
-        
+
         arcTapAmount = arcTapLine.count('arctap')#一个蛇中天键个数
         arcTapLine = arcTapLine.replace('[','').replace(']','')
         arcTapLine = arcTapLine.split(',')
@@ -108,18 +108,20 @@ def lineChangeSpeed(line,globalTimeFactor):
         if arcTapAmount == 1:
             arcTapLine = arcTapLine.replace(',','')
             
+        ####蛇和天键合并####
+
         if arctapBool:
             line = arcLine + arcTapLine + '\n'
         
         else:
             line = arcLine + ';\n'
 
-    elif line.startswith('timinggroup'):
+    elif line.startswith('timinggroup'): #为timinggroup语句
         line = line + '\n'
     elif line == '};':
         line = line + '\n' 
 
-    elif line.startswith('scenecontrol'):
+    elif line.startswith('scenecontrol'): #scenecontrol语句
         line = line.replace('scenecontrol', '')
         line = line.replace(';', '')
         line = list(eval(line))
@@ -137,8 +139,6 @@ with open('pentimentbyd/3.aff', 'r') as file1:
         for line in file1.readlines():
 
             changedLine = lineChangeSpeed(line,globalTimeFactor)
-
-            
 
             file2.write(changedLine)
             
