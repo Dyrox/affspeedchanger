@@ -1,12 +1,15 @@
+from fileinput import close
+import easygui
+import os
+import shutil
+import sox
+import json
+
 def formatAs2Decimals(num: float) -> str:
     return "%.2f" % num
 
 def apostropheSpaceRemove(s: str) -> str:
     return (s.replace("'", "")).replace(" ", "")
-
-enwidencamera = 'enwidencamera'
-enwidenlanes = 'enwidenlanes'
-hidegroup = 'hidegroup'
 
 def lineChangeSpeed(line,globalTimeFactor):
     line = line.strip()
@@ -133,12 +136,40 @@ def lineChangeSpeed(line,globalTimeFactor):
         line = apostropheSpaceRemove(line)
     return line
 
-with open('pentimentbyd/3.aff', 'r') as file1:
-    with open('pentimentbyd/3edit.aff', 'w') as file2:
-        globalTimeFactor = 0.8
+globalTimeFactor = 0.85
+
+enwidencamera = 'enwidencamera'
+enwidenlanes = 'enwidenlanes'
+hidegroup = 'hidegroup'
+
+aff_filepath = easygui.fileopenbox()
+songid = (aff_filepath.split('/'))[-2]
+filename = (aff_filepath.split('/'))[-1]
+changedtempo_songid = songid + f'{globalTimeFactor:.2f}'.replace('.','')
+newaff_filepath = aff_filepath.replace(songid,songid+'/'+changedtempo_songid)
+os.chdir(aff_filepath.replace('/'+filename,''))
+
+if not os.path.exists(changedtempo_songid):
+    os.mkdir(changedtempo_songid)
+
+for file in os.listdir():
+    if file == 'base.jpg' or file == 'base_256.jpg':
+        shutil.copy(file,changedtempo_songid)
+    elif file == 'base.ogg':
+        sox.Transformer().tempo(globalTimeFactor).build_file('base.ogg', changedtempo_songid + '/' + 'base.ogg')
+    elif file.endswith('.wav'):
+        sox.Transformer().tempo(globalTimeFactor).build_file(file, changedtempo_songid + '/' + file)
+
+
+with open(aff_filepath, 'r') as file1:
+    with open(newaff_filepath, 'w') as file2:
+        
         for line in file1.readlines():
 
             changedLine = lineChangeSpeed(line,globalTimeFactor)
 
             file2.write(changedLine)
             
+
+        
+
