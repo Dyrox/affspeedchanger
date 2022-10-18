@@ -5,7 +5,7 @@ import sox
 #import json
 
 def formatAs2Decimals(num: float) -> str:
-    return "%.2f" % num
+    return f'{num:.2f}'
 
 def apostropheSpaceRemove(s: str) -> str:
     return (s.replace("'", "")).replace(" ", "")
@@ -142,6 +142,7 @@ enwidenlanes = 'enwidenlanes'
 hidegroup = 'hidegroup'
 
 aff_filepath = easygui.fileopenbox()
+
 songid = (aff_filepath.split('/'))[-2]
 filename = (aff_filepath.split('/'))[-1]
 changedtempo_songid = songid + f'{globalTimeFactor:.2f}'.replace('.','')
