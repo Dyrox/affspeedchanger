@@ -1,0 +1,4 @@
+2022/10/18
+- 修复 easygui 弹窗问题，其实是我新macos Ventura出bug了，不过还是换成tkinter增强兼容性
+- 属于byd关卡的 3.ogg，3.jpg，3_256.jpg 也回被处理+拷贝到新的文件夹
+- songlist.json 生成器！终于有了
