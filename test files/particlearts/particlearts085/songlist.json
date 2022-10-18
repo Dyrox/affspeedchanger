@@ -1,0 +1,42 @@
+{
+  "idx": 127,
+  "id": "particlearts085",
+  "title_localized": {
+    "en": "Particle Arts x0.85"
+  },
+  "artist": "Virtual Self",
+  "bpm": "137.7-148.75",
+  "bpm_base": 148.75,
+  "set": "prelude",
+  "purchase": "",
+  "audioPreview": 0,
+  "audioPreviewEnd": 0,
+  "side": 1,
+  "bg": "prelude_conflict",
+  "bg_inverse": "prelude_light",
+  "remote_dl": false,
+  "world_unlock": false,
+  "date": 1563408001,
+  "version": "2.2",
+  "difficulties": [
+    {
+      "ratingClass": 0,
+      "chartDesigner": "小東星",
+      "jacketDesigner": "",
+      "rating": 3
+    },
+    {
+      "ratingClass": 1,
+      "chartDesigner": "小東星",
+      "jacketDesigner": "",
+      "rating": 6
+    },
+    {
+      "ratingClass": 2,
+      "chartDesigner": "小東星",
+      "jacketDesigner": "",
+      "rating": 8
+    }
+  ],
+  "byd_local_unlock": true
+}

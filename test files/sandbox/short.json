@@ -1,0 +1,92 @@
+{
+    "songs": [
+      {
+        "idx": 0,
+        "id": "sayonarahatsukoi",
+        "title_localized": {
+          "en": "Sayonara Hatsukoi"
+        },
+        "artist": "REDSHiFT",
+        "bpm": "178",
+        "bpm_base": 178,
+        "set": "base",
+        "purchase": "",
+        "audioPreview": 44494,
+        "audioPreviewEnd": 76853,
+        "side": 0,
+        "bg": "base_light",
+        "bg_inverse": "base_conflict",
+        "date": 1487980800,
+        "version": "1.0",
+        "difficulties": [
+          {
+            "ratingClass": 0,
+            "chartDesigner": "Nitro",
+            "jacketDesigner": "",
+            "rating": 1
+          },
+          {
+            "ratingClass": 1,
+            "chartDesigner": "Nitro",
+            "jacketDesigner": "",
+            "rating": 4
+          },
+          {
+            "ratingClass": 2,
+            "chartDesigner": "Toaster",
+            "jacketDesigner": "",
+            "rating": 7
+          }
+        ]
+      },
+      {
+        "idx": 1,
+        "id": "lostcivilization",
+        "title_localized": {
+          "en": "Lost Civilization"
+        },
+        "artist": "Laur vs CK",
+        "bpm": "75 - 210",
+        "bpm_base": 210,
+        "set": "base",
+        "purchase": "",
+        "audioPreview": 81142,
+        "audioPreviewEnd": 110285,
+        "side": 1,
+        "bg": "base_conflict",
+        "bg_inverse": "base_light",
+        "date": 1487980808,
+        "version": "1.0",
+        "difficulties": [
+          {
+            "ratingClass": 0,
+            "chartDesigner": "Toaster",
+            "jacketDesigner": "",
+            "rating": 4
+          },
+          {
+            "ratingClass": 1,
+            "chartDesigner": "Toaster",
+            "jacketDesigner": "",
+            "rating": 7
+          },
+          {
+            "ratingClass": 2,
+            "chartDesigner": "Toaster",
+            "jacketDesigner": "",
+            "rating": 9
+          },
+          {
+            "ratingClass": 3,
+            "chartDesigner": "Nitro affected by Nitro",
+            "jacketDesigner": "みしゃも + yoshimo",
+            "jacketOverride": true,
+            "rating": 9,
+            "ratingPlus": true,
+            "date": 1620691201,
+            "version": "3.6"
+          }
+        ]
+      }
+    ]
+}

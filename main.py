@@ -1,8 +1,14 @@
-import easygui
+#import easygui
 import os
 import shutil
 import sox
-#import json
+import json
+
+import tkinter as tk
+from tkinter import filedialog
+root = tk.Tk()
+root.withdraw()
+
 
 def formatAs2Decimals(num: float) -> str:
     return f'{num:.2f}'
@@ -137,27 +143,32 @@ def lineChangeSpeed(line,globalTimeFactor):
 
 globalTimeFactor = 0.85
 
-enwidencamera = 'enwidencamera'
-enwidenlanes = 'enwidenlanes'
-hidegroup = 'hidegroup'
+original_directory = os.getcwd()
 
-aff_filepath = easygui.fileopenbox()
+enwidencamera = 'enwidencamera' #6k段 调整摄像机
+enwidenlanes = 'enwidenlanes' #6k段 调整轨道
+hidegroup = 'hidegroup' #timinggroup的隐藏notes 特效，好像是
 
-songid = (aff_filepath.split('/'))[-2]
-filename = (aff_filepath.split('/'))[-1]
-changedtempo_songid = songid + f'{globalTimeFactor:.2f}'.replace('.','')
+#aff_filepath = easygui.fileopenbox() 爷更新macos ventura这东西就突然不好使了，什么东西
+aff_filepath = filedialog.askopenfilename() #GUI选择文件弹窗
+
+songid = (aff_filepath.split('/'))[-2] #获取歌曲id -> particlearts
+filename = (aff_filepath.split('/'))[-1] #获取文件名 -> 0.aff
+changedtempo_songid = songid + f'{globalTimeFactor:.2f}'.replace('.','') #改变了速度的歌曲id -> particlearts085
 newaff_filepath = aff_filepath.replace(songid,songid+'/'+changedtempo_songid)
 os.chdir(aff_filepath.replace('/'+filename,''))
 
-if not os.path.exists(changedtempo_songid):
+if not os.path.exists(changedtempo_songid): #如果没有改变速度的歌曲id文件夹，就创建一个
     os.mkdir(changedtempo_songid)
 
 for file in os.listdir():
-    if file == 'base.jpg' or file == 'base_256.jpg':
+    if file == 'base.jpg' or file == 'base_256.jpg' or file == '3_256.jpg' or file == '3.jpg': #复制封面图片过去
         shutil.copy(file,changedtempo_songid)
-    elif file == 'base.ogg':
+    elif file == 'base.ogg': #用SOX模块处理音频文件
         sox.Transformer().tempo(globalTimeFactor).build_file('base.ogg', changedtempo_songid + '/' + 'base.ogg')
-    elif file.endswith('.wav'):
+    elif file == '3.ogg': #如果有byd音频文件
+        sox.Transformer().tempo(globalTimeFactor).build_file('3.ogg', changedtempo_songid + '/' + '3.ogg')
+    elif file.endswith('.wav'): #如果有特殊音频文件，比如说arcana eden里面的那个hardstyle kick.wav，也复制过去
         sox.Transformer().tempo(globalTimeFactor).build_file(file, changedtempo_songid + '/' + file)
 
 
@@ -171,5 +182,42 @@ with open(aff_filepath, 'r') as file1:
             file2.write(changedLine)
             
 
-        
+desiredsongid = songid
 
+os.chdir(original_directory) #切回原来的目录，不然找不到json文件
+
+with open('410songlist.json') as f:
+    with open(newaff_filepath.replace(filename,'songlist.json'), 'w') as newtempjson:
+        data = json.load(f)
+        for songid in range(len(data['songs'])):
+            if desiredsongid in json.dumps(data['songs'][songid]):
+                data['songs'][songid]['id'] = desiredsongid + f'{globalTimeFactor:.2f}'.replace('.','')
+                data['songs'][songid]['title_localized']['en'] = data['songs'][songid]['title_localized']['en'] + f' x{globalTimeFactor:.2f}'
+                try: #如果歌曲有日语名，也改日语的名字
+                    data['songs'][songid]['title_localized']['ja'] = data['songs'][songid]['title_localized']['ja'] + f' x{globalTimeFactor:.2f}'
+                except:
+                    pass
+                if (data['songs'][songid]['bpm']).isdigit(): 
+                    data['songs'][songid]['bpm'] = str(int(data['songs'][songid]['bpm']) * globalTimeFactor)
+                    
+                elif '-' in data['songs'][songid]['bpm']:
+                    bpm = data['songs'][songid]['bpm'].split('-')#如果bpm是有变化的，比如说魔王bpm 190-280
+                    data['songs'][songid]['bpm'] = str(int(bpm[0]) * globalTimeFactor) + '-' + str(int(bpm[1]) * globalTimeFactor)
+
+                data['songs'][songid]['purchase'] = ''
+                try:
+                    data['songs'][songid]['remote_dl'] = False #有remote_dl参数（就是不在免费包里的）
+                except:
+                    pass
+                try:
+                    data['songs'][songid]['world_unlock'] = False #解锁爬梯解锁限制（如果有）
+                except:
+                    pass
+                try:
+                    data['songs'][songid]['byd_local_unlock'] = True
+                except:
+                    pass
+
+                data['songs'][songid]['bpm_base'] = data['songs'][songid]['bpm_base'] * globalTimeFactor #改bpm_base
+                new_json_formatted = json.dumps(data['songs'][songid], indent=2, ensure_ascii=False) #格式化json, ensure_ascii=False是为了万一有非英文的符号也能正常显示
+                newtempjson.write(new_json_formatted)
