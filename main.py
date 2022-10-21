@@ -168,6 +168,8 @@ for file in os.listdir():
         sox.Transformer().tempo(globalTimeFactor).build_file('base.ogg', changedtempo_songid + '/' + 'base.ogg')
     elif file == '3.ogg': #如果有byd音频文件
         sox.Transformer().tempo(globalTimeFactor).build_file('3.ogg', changedtempo_songid + '/' + '3.ogg')
+    elif file == 'preview.ogg': 
+        sox.Transformer().tempo(globalTimeFactor).build_file('preview.ogg', changedtempo_songid + '/' + 'preview.ogg')
     elif file.endswith('.wav'): #如果有特殊音频文件，比如说arcana eden里面的那个hardstyle kick.wav，也复制过去
         sox.Transformer().tempo(globalTimeFactor).build_file(file, changedtempo_songid + '/' + file)
 
@@ -205,6 +207,9 @@ with open('410songlist.json') as f:
                     data['songs'][songid]['bpm'] = str(int(bpm[0]) * globalTimeFactor) + '-' + str(int(bpm[1]) * globalTimeFactor)
 
                 data['songs'][songid]['purchase'] = ''
+                data['songs'][songid]['audioPreview'] = int(data['songs'][songid]['audioPreview']) // globalTimeFactor
+                data['songs'][songid]['audioPreviewEnd'] = int(data['songs'][songid]['audioPreviewEnd']) // globalTimeFactor
+
                 try:
                     data['songs'][songid]['remote_dl'] = False #有remote_dl参数（就是不在免费包里的）
                 except:
