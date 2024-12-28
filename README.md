@@ -1,6 +1,7 @@
 
-# Arcaea谱面变速器
+# Arcaea谱面变速器 (DEPRECATED)
 
+⚠️⚠️⚠️ THIS REPO WILL NO LONGER BE MAINTAINED/UPDATED AS THERE ARE BETTER ALTERNATIVES FOR PLAYING TIME-SKETCHED CHARTS WITH [Arcthesia/ArcCreate](https://github.com/Arcthesia/ArcCreate)
 
 > 适用于[Arcaea](https://arcaea.lowiro.com/en)游戏谱面文件的变速脚本
 
